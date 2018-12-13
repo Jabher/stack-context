@@ -11,8 +11,8 @@ const hook = asyncHooks.createHook({
 })
 
 module.exports = Object.defineProperties(createContext, {
-  __eidTidPairs: { get() { return eidTidPairs } },
-  __eidContextMap: { get() { return eidContextMap } }
+  __eidTidPairs: { get () { return eidTidPairs } },
+  __eidContextMap: { get () { return eidContextMap } }
 })
 
 function createContext (defaultValue) {
@@ -25,9 +25,12 @@ function createContext (defaultValue) {
       enabled = true
       hook.enable()
     }
-    const asyncId = asyncHooks.executionAsyncId()
-    getEidContext(asyncId).set(context, value)
-    return fn()
+    return Promise.resolve()
+      .then(() => {
+        const asyncId = asyncHooks.executionAsyncId()
+        getEidContext(asyncId).set(context, value)
+        return fn()
+      })
   }
 }
 

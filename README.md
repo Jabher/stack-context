@@ -26,11 +26,17 @@ const transactionContext = createContext()
 
 class DatabaseConnection {
    async transact(fn) {
-     await transactionContext.provide(db.createTransaction(this), fn)
+     const tx = db.createTransaction(this)
+     await transactionContext.provide(tx, fn)
+     tx.commit()
+   }
+   
+   getTx() {
+     return transactionContext.consume()
    }
    
    query() {
-     const transaction = transactionContext.consume()
+     const transaction = this.getTx()
      return transaction
          ? db.query(...arguments, transaction)
          : db.query(...arguments)       
@@ -40,8 +46,15 @@ class DatabaseConnection {
 import {connection} from './dbConnection'
 
 export async function doStuff() {
-  await connection.transact(async () => {
-    
+  connection.transact(async () => {
+    assert(this.getTx() instanceof Transaction)
+    await db.query(query1)
+    await fetch(remoteUrl)
+    await db.query(query2)
+    assert(this.getTx() instanceof Transaction)
   })
+  assert(this.getTx() === undefined)
 }
+
+
 ```

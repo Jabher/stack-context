@@ -18,6 +18,15 @@ test('plain', async t => {
     t.pass()
   })
 })
+test('keeping boundaries', async t => {
+  const obj = {}
+  const context = createContext()
+  context.provide(obj, () => {
+    t.truthy(obj === context.consume())
+    t.pass()
+  })
+  t.truthy(undefined === context.consume())
+})
 
 test('async', async t => {
   const obj = {}

@@ -1,2 +1,7 @@
+.git
+.idea
 .gitignore
+.travis.yml
 test.js
+yarn-error.log
+yarn.lock
