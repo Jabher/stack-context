@@ -1,0 +1,19 @@
+{
+  "name": "stack-context",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
+  "engines": {
+    "node": ">=8.1.0"
+  },
+  "engineStrict": true,
+  "scripts": {
+    "test": "ava",
+    "test:watch": "ava --watch"
+  },
+  "devDependencies": {
+    "ava": "1.0.0-rc.2",
+    "fs-extra": "^7.0.1"
+  }
+}
