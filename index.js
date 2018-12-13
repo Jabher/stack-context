@@ -16,21 +16,24 @@ module.exports = Object.defineProperties(createContext, {
 })
 
 function createContext (defaultValue) {
-  const context = { provide, consume: () => getContextValue(asyncHooks.executionAsyncId(), context, defaultValue) }
+  const key = {}
+  return {
+    provide (value, fn) {
+      if (!enabled) {
+        enabled = true
+        hook.enable()
+      }
 
-  return context
-
-  function provide (value, fn) {
-    if (!enabled) {
-      enabled = true
-      hook.enable()
+      return Promise.resolve()
+        .then(() => {
+          const asyncId = asyncHooks.executionAsyncId()
+          getEidContext(asyncId).set(key, value)
+          return fn()
+        })
+    },
+    consume () {
+      return getContextValue(asyncHooks.executionAsyncId(), key, defaultValue)
     }
-    return Promise.resolve()
-      .then(() => {
-        const asyncId = asyncHooks.executionAsyncId()
-        getEidContext(asyncId).set(context, value)
-        return fn()
-      })
   }
 }
 

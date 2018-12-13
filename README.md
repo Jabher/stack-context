@@ -2,6 +2,10 @@
 
 _Practical application of [async_hooks](https://nodejs.org/api/async_hooks.html) for glory of contexts_
 
+[![Build Status](https://travis-ci.org/jabher/stack-context.png?branch=master)](https://travis-ci.org/jabher/stack-context)
+[![Node version](https://img.shields.io/node/v/stack-context.svg?style=flat)](http://nodejs.org/packages/stack-context)
+[![Maintainability](https://api.codeclimate.com/v1/badges/71adae9fceed908a598e/maintainability)](https://codeclimate.com/github/Jabher/stack-context/maintainability)
+
 If you are working on
 
 - database ORM/connection suite
